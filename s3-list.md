@@ -66,4 +66,4 @@ For fun, our dev team decided to see how pervasive the use of the default valida
 
 _Ouch._
 
-Being able to drill into our AWS usage is one benefit from using Asgard.  If you want to pinpoint hot spots in your application and network, you should sign [up](http://www.appneta.com/products/)!
+If you want to pinpoint your hot spots in your application and network, you should sign [up](http://www.appneta.com/products/)!
