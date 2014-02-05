@@ -1,4 +1,4 @@
-## Dr. Asgard, Or How I Learned About S3 List ##
+## Dr. Ice, Or How I Learned About S3 List ##
 
 AppNeta has used a lot of open source libraries and programs in building and running our architecture.  One utility in general that's provided us with an easy way to slice up and investigate our AWS spending is the awesome [Ice](https://github.com/Netflix/ice/).  Instead of having to do manual tabulation based on the monthly billing email from Aamzon, we can easily break down and graph our bill by hour, week or month.  By tagging our resources, we can even group by environment, role or any other category we want, making it easy to see how much it costs to run our production environment versus our staging environment and other expirements.
 
