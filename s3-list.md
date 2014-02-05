@@ -1,6 +1,6 @@
 ## Dr. Asgard, Or How I Learned About S3 List ##
 
-AppNeta has used a lot of open source libraries and programs in building and running our architecture.  One utility in general that's provided us with an easy way to slice up and investigate our AWS spending is the awesome [Asgard](http://netflix.github.io/asgard/).  Instead of having to do manual tabulation based on the monthly billing email from Aamzon, we can easily break down and graph our bill by hour, week or month.  By tagging our resources, we can even group by environment, role or any other category we want, making it easy to see how much it costs to run our production environment versus our staging environment and other expirements.
+AppNeta has used a lot of open source libraries and programs in building and running our architecture.  One utility in general that's provided us with an easy way to slice up and investigate our AWS spending is the awesome [Ice](https://github.com/Netflix/ice/).  Instead of having to do manual tabulation based on the monthly billing email from Aamzon, we can easily break down and graph our bill by hour, week or month.  By tagging our resources, we can even group by environment, role or any other category we want, making it easy to see how much it costs to run our production environment versus our staging environment and other expirements.
 
 It also allows us to easily spot aberrations in our usage patterns which cost AppNeta money.  One of those was a somewhat high cost in our S3 bill, where we noticed that we were performing a _lot_ of S3 List operations, as noticed by our engineering team.
 
@@ -46,7 +46,7 @@ def get_bucket(self, bucket_name, validate=True, headers=None):
     return bucket
 ```
 
-The important parameter to notice here is the default of ```validate=True```, which is also listed as the first example of getting a bucket in the boto [docs](http://boto.readthedocs.org/en/latest/s3_tut.html).  This causes the code to call get_all_keys, which GETs the bucket ([here](https://github.com/boto/boto/blob/master/boto/s3/bucket.py#L369)) and returns a [ListBucketResult](http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGET.html).
+The important parameter to notice here is the default of ```validate=True```, which is also listed as the first example of getting a bucket in the boto [docs](http://boto.readthedocs.org/en/latest/s3_tut.html).  This causes the code to call get_all_keys, which calls S3's LIST command with maxkeys=0 to verify the bucket exists ([here](https://github.com/boto/boto/blob/master/boto/s3/bucket.py#L369)) and returns a [ListBucketResult](http://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketGET.html).
 
 Now, normally S3 is really, _really_ [cheap](http://aws.amazon.com/s3/pricing/).  But LISTs are _over 12 times_ more expsensive than GETs.
 
