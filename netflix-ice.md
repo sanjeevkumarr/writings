@@ -1,10 +1,10 @@
 ## Netflix Ice: Easily See Your AWS Costs ##
 
-Netflix (https://github.com/netflix/ice)[Ice] is another of Netflix's OSS projects that parses your billing information from AWS to present some really useful graphs to break out where your high costs are.
+Netflix [Ice](https://github.com/netflix/ice) is another of Netflix's OSS projects that parses your billing information from AWS to present some really useful graphs to break out where your high costs are.
 
 Setting it up is pretty easy:
 
-First, you need to sign up for Amazon's Detailed Billing (http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html)[here].  This will place the reports in a S3 bucket of your choosing.
+First, you need to sign up for Amazon's Detailed Billing [here](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html).  This will place the reports in a S3 bucket of your choosing.
 
 We'll go ahead and install it as a standalone application to make deployments easier, so install Tomcat on your server.  We've been using the standard Tomcat 7 install with no problems:
 ```
