@@ -4,15 +4,14 @@ Ice (TODO: link here) was designed at Netflix and parses your billing informatio
 
 Setting it up is pretty easy:
 
-1. First, you need to sign up for Amazon's Detailed Billing [http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html](here).  This will place the reports in a S3 bucket of your choosing.
+First, you need to sign up for Amazon's Detailed Billing [http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html](here).  This will place the reports in a S3 bucket of your choosing.
 
-1. We'll go ahead and install it as a standalone application to make deployments easier, so install Tomcat on your server.  We've been using the standard Tomcat 7 install with no problems:
+We'll go ahead and install it as a standalone application to make deployments easier, so install Tomcat on your server.  We've been using the standard Tomcat 7 install with no problems:
 ```
 $ sudo apt-get install tomcat7
 ```
 
-1. Ice is a Grails application, so you'll need to install Groovy and Grails in order to build a WAR file from the Ice source.  Netflix is harcoded to use Grails 2.2.1.
-
+Ice is a Grails application, so you'll need to install Groovy and Grails in order to build a WAR file from the Ice source.  Netflix is harcoded to use Grails 2.2.1.
 ```
 wget http://dl.bintray.com/groovy/maven/groovy-sdk-2.3.8.zip
 unzip groovy-sdk-2.3.8.zip
@@ -22,16 +21,14 @@ unzip grails-2.2.1.zip
 export PATH=${PATH}:$HOME/grails-2.2.1/bin:$HOME/groovy-sdk-2.3.8/bin
 ```
 
-1. Clone the Ice repository and build the project.
-
+Clone the Ice repository and build the project.
 ```
 $ git clone git@github.com:Netflix/ice.git
 $ cd ice
 $ grails clean; grails war
 ```
 
-1. Put the WAR file in Tomcat's webapps directory.  We'll also set up the temp directories used by Ice.
-
+Put the WAR file in Tomcat's webapps directory.  We'll also set up the temp directories used by Ice.
 ```
 sudo cp target/ice.war /var/lib/tomcat7/webapps
 sudo chown tomcat7:tomcat7 /var/lib/tomcat7/webapps/ice.war
@@ -53,7 +50,7 @@ $ cat /etc/tomcat7/Catalina/localhost/ice.xml
 </Context>
 ```
 
-1. Configure Ice.  The basic configurations you'll need to put in /var/lib/tomcat7/webapps/ice/WEB-INF/classes/ice.properties are:
+Configure Ice.  The basic configurations you'll need to put in /var/lib/tomcat7/webapps/ice/WEB-INF/classes/ice.properties are:
 
 ```
 # milliseconds since epoch to start billing at (if you wanted to start later)
