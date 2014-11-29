@@ -6,7 +6,7 @@ Setting it up is pretty easy:
 
 First, you need to sign up for Amazon's Detailed Billing [here](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html).  This will place the reports in a S3 bucket of your choosing.
 
-We'll go ahead and install it as a standalone application to make deployments easier, so install Tomcat on your server.  We've been using the standard Tomcat 7 install with no problems:
+You can use Netflix's [install](https://github.com/Netflix/ice/blob/master/install.sh) script to set up the project as a Grails application, but we'll go ahead and install it as a Tomcat project to make deployments easier.  We've been using the standard Tomcat 7 install with no problems:
 ```
 $ sudo apt-get install tomcat7
 ```
