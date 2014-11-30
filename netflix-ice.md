@@ -4,7 +4,7 @@ Netflix [Ice](https://github.com/netflix/ice) is another of Netflix's OSS projec
 
 Setting it up is pretty easy.  First, you need to sign up for Amazon's Detailed Billing [here](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html).  This will place the reports in a S3 bucket of your choosing.  Make sure you pick the option to export your resource tags as well.
 
-You can use Netflix's [install](https://github.com/Netflix/ice/blob/master/install.sh) script to set up the project as a Grails application, and there's even a community Chef cookbook to install it.  At [AppNeta](http://www.appneta.com/) we've installed it in one of our Tomcat servers to make deployments easier.  We've been using the standard Tomcat 7 install with no problems:
+You can use Netflix's [install](https://github.com/Netflix/ice/blob/master/install.sh) script to set up the project as a Grails application, and there's even a community Chef cookbook to install it.  At [AppNeta](http://www.appneta.com/) we've just made a WAR from the source and installed it on one of our existing Tomcat servers to make the deployment easier.  We've been using the standard Tomcat 7 install with no problems:
 ```
 $ sudo apt-get install tomcat7
 ```
