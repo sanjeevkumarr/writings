@@ -4,14 +4,14 @@ Netflix [Ice](https://github.com/netflix/ice) is another of Netflix's OSS projec
 
 Setting it up is pretty easy:
 
-First, you need to sign up for Amazon's Detailed Billing [here](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html).  This will place the reports in a S3 bucket of your choosing.
+First, you need to sign up for Amazon's Detailed Billing [here](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/detailed-billing-reports.html).  This will place the reports in a S3 bucket of your choosing.  Make sure you pick the option to export your resource tags as well.
 
-You can use Netflix's [install](https://github.com/Netflix/ice/blob/master/install.sh) script to set up the project as a Grails application, but we'll go ahead and install it as a Tomcat project to make deployments easier.  We've been using the standard Tomcat 7 install with no problems:
+You can use Netflix's [install](https://github.com/Netflix/ice/blob/master/install.sh) script to set up the project as a Grails application, and there's even a community Chef cookbook to install it.  At AppNeta we've installed it in one of our Tomcat servers to make deployments easier.  We've been using the standard Tomcat 7 install with no problems:
 ```
 $ sudo apt-get install tomcat7
 ```
 
-Ice is a Grails application, so you'll need to install Groovy and Grails in order to build a WAR file from the Ice source.  Netflix is harcoded to use Grails 2.2.1.
+Ice is a Grails application, so you'll need to install Groovy and Grails in order to build a WAR file from the Ice source.  Netflix is hardcoded to use Grails 2.2.1.
 ```
 wget http://dl.bintray.com/groovy/maven/groovy-sdk-2.3.8.zip
 unzip groovy-sdk-2.3.8.zip
@@ -66,6 +66,8 @@ ice.processor.localDir=/mnt/ice_processor
 ice.reader.localDir=/mnt/ice_reader
 # your Amazon account number
 ice.account.YourCompany=12345678
+# the list of tags you exported in your billing CSV to use in application groups
+ice.customTags=user:Role
 ```
 
 You'll also need to set these so Ice can access S3 to get the billing data.
@@ -74,7 +76,7 @@ ice.s3AccessKeyId=<accessKeyId>
 ice.s3SecretKey=<secretKey>
 ice.s3AccessToken=<accessToken>
 ```
-At Appneta, we've used a quick IAM role instead, and given our server that instance profile.
+We've used a quick, albeit permissive, IAM role instead and given our server that instance profile.
 ```
 {
   "Statement": [
@@ -94,4 +96,22 @@ At Appneta, we've used a quick IAM role instead, and given our server that insta
 }
 ```
 
-Restart Tomcat afterwards.
+Restart Tomcat afterwards, and you should be able to access Ice at http://yourserver:8080/ice .  If you don't see any data yet, check your billing S3 bucket to see if any reports have been delivered.  Amazon generates them several times a day, so you'll eventually see CSVs there that Ice will periodically download.
+
+The basic screen will show your cost breakdown by AWS product type:
+
+![](https://raw.github.com/jessedavis/writings/master/images/basic_resource_breakdown.png)
+
+If you tag your instances, EBS volumes and other resources, you can define application groups to group them together.
+
+![](https://raw.github.com/jessedavis/writings/master/images/application_group_menu.png)
+
+After you've defined your application groups, you get a nice default view that shows the cost breakdown per group, which is pretty useful to use in reports for dev vs. production environment cost.
+
+![](https://raw.github.com/jessedavis/writings/master/images/application_group_list.png)
+
+You can then click on the application group and filter by Product type to see your server cost per group.
+
+![](https://raw.github.com/jessedavis/writings/master/images/resource_group_instance_cost.png)
+
+The little amount of time it took us to install and configure Ice has already paid off.  We used it to spot an boto design decision that was costing us quite a bit of money (see [here](http://www.appneta.com/blog/s3-list-get-bucket-default/) for the lowdown).  Our pull request even made it back into [boto](http://boto.readthedocs.org/en/latest/releasenotes/v2.25.0.html)!
