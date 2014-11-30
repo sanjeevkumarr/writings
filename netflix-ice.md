@@ -56,7 +56,7 @@ ice.startmillis=1370044800000
 # used in the display
 ice.companyName=YourCompany
 # the top-level S3 bucket that you specified when setting up AWS Detailed Billing above 
-ice.billing_s3bucketname=traceview-billing
+ice.billing_s3bucketname=yourcompany-billing
 # the top-level S3 bucket used for Ice's flat file DBs
 ice.work_s3bucketname=netflix-ice-workdir
 # the temporary directories on your server used for Ice's flat file DBs, also mirrored above, give tomcat +rwx access
