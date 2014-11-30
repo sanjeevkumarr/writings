@@ -59,7 +59,8 @@ ice.companyName=YourCompany
 ice.billing_s3bucketname=yourcompany-billing
 # the top-level S3 bucket used for Ice's flat file DBs
 ice.work_s3bucketname=netflix-ice-workdir
-# the temporary directories on your server used for Ice's flat file DBs, also mirrored above, give tomcat +rwx access
+# the temporary directories on your server used for Ice's flat file DBs, also mirrored above
+# give tomcat +rwx access
 ice.processor.localDir=/mnt/ice_processor
 ice.reader.localDir=/mnt/ice_reader
 # your Amazon account number
@@ -74,7 +75,7 @@ ice.s3AccessKeyId=<accessKeyId>
 ice.s3SecretKey=<secretKey>
 ice.s3AccessToken=<accessToken>
 ```
-We've used a quick, albeit permissive, IAM role instead and given our server that instance profile.
+We've used a quick and dirty IAM role instead and spun our server with that instance profile.
 ```
 {
   "Statement": [
